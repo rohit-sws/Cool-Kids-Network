@@ -16,8 +16,7 @@ add_action('rest_api_init', function () {
         'methods' => 'POST',
         'callback' => 'assign_user_role',
         'permission_callback' => function () {
-        //return current_user_can('manage_options'); // Only admins can access
-        return true;
+        return current_user_can('manage_options'); // Only admins can access
         }
     ]);
 });
