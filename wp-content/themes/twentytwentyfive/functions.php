@@ -319,7 +319,19 @@ function cool_kids_login_form() {
             // Log in the user
             wp_set_current_user($user->ID);
             wp_set_auth_cookie($user->ID);
-            wp_redirect('./index.php/view-my-data/'); // Redirect to homepage after login
+            $character_data = get_user_meta($user->ID); 
+            $role=$character_data['role'][0];
+            if($role=='Coolest Kid'){ 
+            wp_redirect('./index.php/all-user-with-email-and-role/'); 
+            }
+            else if($role=='Cooler Kid')
+            {
+              wp_redirect('./index.php/all-user-data/'); 
+            }else{
+                wp_redirect('./index.php/view-my-data/'); 
+
+            }
+            // Redirect to homepage after login
             exit;
         } 
     }

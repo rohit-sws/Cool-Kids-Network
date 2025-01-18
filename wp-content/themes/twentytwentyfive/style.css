@@ -71,18 +71,7 @@ h1, h2, h3, h4, h5, h6, blockquote, caption, figcaption, p {
 }
 
 /* General Reset */
-/*
-body {
-	font-family: Arial, sans-serif;
-	margin: 0;
-	padding: 0;
-	background-color: #f9f9f9;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
-  }
-*/
+
   
   #custom-registration-form {
 	background-color: #ffffff;
