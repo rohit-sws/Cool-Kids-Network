@@ -4,8 +4,7 @@
 <body>
     <h1>Overview</h1>
     <p>The "Cool Kids Network" project is a WordPress-based website designed to manage user registrations, role-based access, and character data through an intuitive interface and a secure API. It implements features for registering users, assigning roles, accessing data based on permissions, and managing roles via a protected REST API.</p>
-
-    <h2>The Problem to Be Solved</h2>
+ <h1>The Problem to Be Solved</h1>
     <p>The website needs to:</p>
     <ul>
         <li>Allow users to register and automatically generate a unique character for them.</li>
@@ -17,9 +16,7 @@
         </ul>
         <li>Provide a secure API endpoint for administrators to change user roles.</li>
     </ul>
-
     <h2>Technical Specification</h2>
-
     <h3>1. User Registration</h3>
     <p><strong>What happens:</strong></p>
     <ul>
@@ -32,7 +29,6 @@
         <li>A custom registration form is created using a shortcode.</li>
         <li>WordPress functions like <code>wp_insert_user()</code> and <code>add_user_meta()</code> handle user creation and metadata storage.</li>
     </ul>
-
     <h3>2. User Login</h3>
     <p><strong>What happens:</strong></p>
     <ul>
@@ -44,7 +40,6 @@
         <li>A custom login form is implemented using <code>wp_set_auth_cookie()</code> and <code>wp_set_current_user()</code> for authentication.</li>
         <li>Shortcodes display the logged-in user's character data.</li>
     </ul>
-
     <h3>3. Role-Based Access</h3>
     <p><strong>What happens:</strong></p>
     <ul>
@@ -57,7 +52,6 @@
         <li>Conditional logic based on <code>current_user_can()</code> checks user capabilities before granting access.</li>
         <li>Data is retrieved using <code>get_users()</code> and filtered appropriately.</li>
     </ul>
-
     <h3>4. Role Assignment via API</h3>
     <p><strong>What happens:</strong></p>
     <ul>
@@ -70,7 +64,6 @@
         <li>The API validates the request using <code>current_user_can('manage_options')</code>.</li>
         <li>User roles are updated using <code>set_role()</code>.</li>
     </ul>
-
     <h2>Design Decisions</h2>
     <ul>
         <li><strong>Why WordPress:</strong>
@@ -96,7 +89,6 @@
             </ul>
         </li>
     </ul>
-
     <h2>How the Solution Meets the Requirements</h2>
     <ul>
         <li><strong>User Registration:</strong> Anonymous users can sign up and get an automatically generated character with metadata stored in the database.</li>
@@ -104,32 +96,38 @@
         <li><strong>Role-Based Access:</strong> Permissions ensure users only access data allowed by their roles.</li>
         <li><strong>Role Assignment via API:</strong> A secure endpoint allows admins to manage roles programmatically.</li>
     </ul>
-
     <h2>Setup Instructions</h2>
     <ul>
         <li><strong>Install WordPress:</strong> Set up a WordPress environment using tools like LocalWP, XAMPP, or Docker.</li>
         <li><strong>Create a Custom Plugin:</strong> Add all custom PHP code to a new plugin folder (e.g., <code>cool-kids-api</code>).</li>
         <li><strong>Register User Roles:</strong> Use <code>add_role()</code> to define roles: "Cool Kid," "Cooler Kid," and "Coolest Kid."</li>
-        <li><strong>Set Up API Authentication:</strong> Install a plugin like JWT Authentication or Basic Auth to secure the REST API.</li>
+        <li><strong>Set Up API Authentication:</strong> Install a plugin Basic Auth to secure the REST API.</li>
         <li><strong>Test the System:</strong> Verify registration, login, role-based access, and API functionality.</li>
     </ul>
-
-    <h2>Example API Request</h2>
-    <p><strong>Endpoint:</strong> POST /wp-json/cool-kids/v1/set-role</p>
+<h2>Example API Request</h2>
+    <p><strong>Endpoint:</strong> POST /index.php/wp-json/cool-kids/v1/assign-role</p>
     <pre>
-{
-    "email": "user@example.com",
-    "role": "coolest_kid"
-}
+    {
+        "email": "c1@gmail.com",
+        "role": "Cooler Kid"
+    }
     </pre>
     <p><strong>Response:</strong></p>
     <pre>
-{
-    "success": true,
-    "message": "Role 'coolest_kid' has been assigned to user user@example.com."
-}
+    {"success":true,"message":"Role 'Cooler Kid' assigned to user r5@gmail.com."}
     </pre>
-
+     <p><strong>Endpoint:</strong> POST /index.php/wp-json/cool-kids/v1/assign-role</p>
+    <pre>
+    {
+    "role": "Cooler Kid",
+    "first_name":"Marie",
+    "last_name":"Jenkins"
+    }
+    </pre>
+    <p><strong>Response:</strong></p>
+    <pre>
+    {"success":true,"message":"Role 'Cooler Kid' assigned to user r5@gmail.com."}
+    </pre>
     <h2>Future Enhancements</h2>
     <ul>
         <li><strong>Password Implementation:</strong> Add secure password authentication for users.</li>
