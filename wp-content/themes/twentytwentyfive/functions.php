@@ -297,5 +297,50 @@
 		add_action('wp_ajax_nopriv_register_user_and_character', 'register_user_and_character');
 	
 	endif;
+
+
+
+ if (!function_exists('cool_kids_login_form')):   
+    // Shortcode for login form
+function cool_kids_login_form() {
+    // Check if the user is already logged in
+    if (is_user_logged_in()) {
+        return '<p>You are already logged in. <a href="' . esc_url(wp_logout_url(home_url())) . '">Logout</a></p>';
+    }
+
+    // HTML for the login form
+
+    // Handle form submission
+    if (isset($_POST['login_submit'])) {
+        $email = sanitize_email($_POST['email']);
+        $user = get_user_by('email', $email);
+
+        if ($user) {
+            // Log in the user
+            wp_set_current_user($user->ID);
+            wp_set_auth_cookie($user->ID);
+            wp_redirect('./index.php/view-my-data/'); // Redirect to homepage after login
+            exit;
+        } 
+    }
+
+    $output .= '
+    <form id="custom-registration-form"  method="post" action="">';
+     $output .= '<label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>';
+        if (!$user && isset($_POST['login_submit'])) {
+            $output .= '<div class="error login_class">Invalid email address. Please try again.</div><br>';
+        }
+        $output .= '<input type="submit" name="login_submit" value="Login" id="login-button" class="wp-element-button">
+ 
+    </form>';
+
+
+    return $output;
+}
+
+// Register shortcode [cool_kids_login_form]
+add_shortcode('cool_kids_login_form', 'cool_kids_login_form');
+endif;
 	?>
 	
