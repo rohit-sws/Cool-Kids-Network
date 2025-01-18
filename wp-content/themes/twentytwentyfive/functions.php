@@ -342,5 +342,61 @@ function cool_kids_login_form() {
 // Register shortcode [cool_kids_login_form]
 add_shortcode('cool_kids_login_form', 'cool_kids_login_form');
 endif;
+
+
+
+
+if (!function_exists('get_logged_in_user_data')):   
+
+function get_logged_in_user_data() {
+    if (is_user_logged_in()) {
+        $user_id = get_current_user_id();
+        
+        
+       # echo $user_id;
+        $character_data = get_user_meta($user_id);
+        $user_data = get_userdata($user_id);
+
+
+       # echo "<pre>";
+       # print_R($character_data);exit;
+
+        if ($character_data) {
+        $user_data = get_userdata($user_id);
+            if($user_data){
+                $character_data['email'][0]=$user_data->user_email;
+            }
+            return $character_data; // Array containing first_name, last_name, country, email, role
+        } else {
+            return ['error' => 'Character data not found.'];
+        }
+    } else {
+        return ['error' => 'User not logged in.'];
+    }
+}
+
+add_shortcode('user_character_data', function () {
+    $data = get_logged_in_user_data();
+    if (isset($data['error'])) {
+        return $data['error'];
+    }
+ 
+    $html_data="<div class='get_user_meta'>
+     <p> <b>First Name:</b>".$data['first_name'][0]."</p>
+     <p> <b>Last Name:</b>".$data['last_name'][0]."</p>
+     <p> <b>Email:</b>".$data['email'][0]."</p>
+    
+     <p> <b>Country:</b>".$data['country'][0]."</p>
+     <p> <b>Role:</b>".$data['role'][0]."</p>
+     
+    </div>";
+
+
+return $html_data;
+  //  return "First Name: {$data['first_name']}<br>Last Name: {$data['last_name']}<br>Country: {$data['country']}<br>Email: {$data['email']}<br>Role: {$data['role']}";
+});
+endif;
+
+
 	?>
 	
