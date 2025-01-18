@@ -393,10 +393,62 @@ add_shortcode('user_character_data', function () {
 
 
 return $html_data;
-  //  return "First Name: {$data['first_name']}<br>Last Name: {$data['last_name']}<br>Country: {$data['country']}<br>Email: {$data['email']}<br>Role: {$data['role']}";
 });
 endif;
 
+
+
+if (!function_exists('get_all_users_name_country')):   
+
+
+function get_all_users_name_country() {
+    
+        if (is_user_logged_in()) {
+            $user_id = get_current_user_id();
+            $character_data = get_user_meta($user_id);
+            $role=$character_data['role'][0];
+
+            if ($role=='Coole Kid') {
+                return ['error' => 'Access denied.'];
+            }
+        
+        }    
+
+    $users = get_users(['fields' => ['ID']]);
+
+    $data = [];
+
+    foreach ($users as $user) {
+        $user_meta = get_user_meta($user->ID);
+         
+        $data[] = [
+            'name' => "{$user_meta['first_name'][0]} {$user_meta['last_name'][0]}",
+            'country' => $user_meta['country'][0]
+        ];
+    }
+
+    return $data;
+}
+
+add_shortcode('all_users_name_country', function () {
+    $users_data = get_all_users_name_country();
+    if (isset($users_data['error'])) {
+        return $users_data['error'];
+    }
+
+    $output = '<ul>';
+    foreach ($users_data as $user) {
+         
+            if(trim($user['name'])!=""){ 
+                $output .= "<li>Name: {$user['name']}, Country: {$user['country']}</li>";
+            }
+    }
+    $output .= '</ul>';
+
+    return $output;
+});
+
+endif;
 
 	?>
 	
