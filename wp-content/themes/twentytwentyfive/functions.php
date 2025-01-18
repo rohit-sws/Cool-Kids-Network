@@ -323,9 +323,8 @@ function cool_kids_login_form() {
             exit;
         } 
     }
-
-    $output .= '
-    <form id="custom-registration-form"  method="post" action="">';
+    $outupt='';
+    $output .= '<form id="custom-registration-form"  method="post" action="">';
      $output .= '<label for="email">Email:</label>
         <input type="email" id="email" name="email" required>';
         if (!$user && isset($_POST['login_submit'])) {
@@ -450,5 +449,49 @@ add_shortcode('all_users_name_country', function () {
 
 endif;
 
+if (!function_exists('get_all_users_email_role')):   
+
+function get_all_users_email_role() {
+    if (is_user_logged_in()) {
+        $user_id = get_current_user_id();
+        $character_data = get_user_meta($user_id);
+        $role=$character_data['role'][0];
+
+        if ($role!='Coolest Kid') {
+            return ['error' => 'Access denied.'];
+        }
+    
+    }    
+
+    $users = get_users(['fields' => ['ID']]);
+    $data = [];
+
+    foreach ($users as $user) {
+        $user_meta = get_user_meta($user->ID);
+            $data[] = [
+            'email' => $user_meta['nickname'][0],
+            'role' => $user_meta['role'][0]
+        ];
+    }
+
+    return $data;
+}
+
+add_shortcode('all_users_email_role', function () {
+    $users_data = get_all_users_email_role();
+    if (isset($users_data['error'])) {
+        return $users_data['error'];
+    }
+
+    $output = '<ul>';
+    foreach ($users_data as $user) {
+        $output .= "<li>Email: {$user['email']}, Role: {$user['role']}</li>";
+    }
+    $output .= '</ul>';
+
+    return $output;
+});
+
+endif;
 	?>
 	
