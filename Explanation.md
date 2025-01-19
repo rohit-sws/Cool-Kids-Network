@@ -48,7 +48,7 @@
     </ul>
     <p><strong>How it works:</strong></p>
     <ul>
-        <li>Roles are defined in WordPress using <code>add_role()</code>.</li>
+        <li>Roles are defined in wp_usermeta as role meta_key in WordPress.</li>
         <li>Conditional logic based on <code>current_user_can()</code> checks user capabilities before granting access.</li>
         <li>Data is retrieved using <code>get_users()</code> and filtered appropriately.</li>
     </ul>
