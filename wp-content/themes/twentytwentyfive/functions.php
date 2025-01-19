@@ -191,9 +191,10 @@
   </button>
 </form>
 			
-			
+			<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 	
 			<script type="text/javascript">
+             
 			jQuery(document).ready(function($) {
 				// Function to validate the email address format
 				function validateEmail(email) {
@@ -278,10 +279,13 @@
 				// Fetch random user data from the external API
 				$response = wp_remote_get('https://randomuser.me/api/');
 				$data     = json_decode(wp_remote_retrieve_body($response), true);
+              
+            
 	
 				// If data is retrieved successfully, update user metadata
 				if (!empty($data['results'][0])) {
 					$character = $data['results'][0];
+                   
 					update_user_meta($user_id, 'first_name', $character['name']['first']);
 					update_user_meta($user_id, 'last_name', $character['name']['last']);
 					update_user_meta($user_id, 'country', $character['location']['country']);
@@ -418,7 +422,7 @@ function get_all_users_name_country() {
             $character_data = get_user_meta($user_id);
             $role=$character_data['role'][0];
 
-            if ($role=='Coole Kid') {
+            if ($role=='Cool Kid') {
                 return ['error' => 'Access denied.'];
             }
         
@@ -510,6 +514,22 @@ add_shortcode('all_users_email_role', function () {
 
 endif;
 
+function enqueue_custom_jquery() {
+    // Deregister WordPress default jQuery
+    wp_deregister_script('jquery');
+
+    // Enqueue jQuery from the CDN
+    wp_enqueue_script(
+        'jquery',
+        'https://code.jquery.com/jquery-3.7.1.min.js',
+        [],
+        '3.7.1',
+        true
+    );
+
+    
+}
+add_action('wp_enqueue_scripts', 'enqueue_custom_jquery');
 
 
 ?>
