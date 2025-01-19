@@ -48,9 +48,9 @@
     </ul>
     <p><strong>How it works:</strong></p>
     <ul>
-        <li>Roles are defined in wp_usermeta as role meta_key in WordPress.</li>
-        <li>Conditional logic based on <code>current_user_can()</code> checks user capabilities before granting access.</li>
-        <li>Data is retrieved using <code>get_users()</code> and filtered appropriately.</li>
+       <li>User roles are stored in the <code>wp_usermeta</code> table as the value of the <code>meta_key</code> column, typically under the key <code>role</code>.</li>
+<li>Access control is implemented using conditional logic. For example, by combining <code>is_user_logged_in()</code> and retrieving the user's role from the <code>wp_usermeta</code> table, you can verify user capabilities before granting access.</li>
+<li>Data is retrieved using <code>get_users()</code> and filtered appropriately.</li>
     </ul>
     <h3>4. Role Assignment via API</h3>
     <p><strong>What happens:</strong></p>
