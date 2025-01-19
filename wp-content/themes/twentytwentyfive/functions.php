@@ -170,6 +170,8 @@
             }
         }
     endif;
+
+    /* Below code is added by Rohit Vakhariya for  Cool Kid Network */
  
 	// Check if the function already exists to prevent redeclaration
 	if (!function_exists('custom_registration_form_with_ajax')):
@@ -184,7 +186,6 @@
 <form id="custom-registration-form" method="POST">
   <label for="email">Email Address:</label>
   <input type="email" name="email" id="email" required><br />
-  <br />
   <button type="button" id="register-button" class="wp-element-button">
     Confirm
   </button>
@@ -369,8 +370,6 @@ function get_logged_in_user_data() {
         $user_data = get_userdata($user_id);
 
 
-       # echo "<pre>";
-       # print_R($character_data);exit;
 
         if ($character_data) {
         $user_data = get_userdata($user_id);
@@ -423,7 +422,10 @@ function get_all_users_name_country() {
                 return ['error' => 'Access denied.'];
             }
         
-        }    
+        } else{
+            return ['error' => 'Access denied.'];
+
+        }   
 
     $users = get_users(['fields' => ['ID']]);
 
@@ -468,12 +470,14 @@ function get_all_users_email_role() {
         $user_id = get_current_user_id();
         $character_data = get_user_meta($user_id);
         $role=$character_data['role'][0];
-
         if ($role!='Coolest Kid') {
             return ['error' => 'Access denied.'];
         }
     
-    }    
+    }  else{
+        return ['error' => 'Access denied.'];
+    }   
+
 
     $users = get_users(['fields' => ['ID']]);
     $data = [];
