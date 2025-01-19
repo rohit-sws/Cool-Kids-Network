@@ -99,7 +99,7 @@
     <ul>
         <li><strong>Install WordPress:</strong> Set up a WordPress environment using tools like LocalWP, XAMPP, or Docker.</li>
         <li><strong>Create a Custom Plugin:</strong> Add all custom PHP code to a new plugin folder (e.g., <code>cool-kids-api</code>).</li>
-        <li><strong>Register User Roles:</strong> Use <code>add_role()</code> to define roles: "Cool Kid," "Cooler Kid," and "Coolest Kid."</li>
+        <li><strong>User Roles:</strong> "Cool Kid," "Cooler Kid," and "Coolest Kid."</li>
         <li><strong>Set Up API Authentication:</strong> Install a plugin Basic Auth to secure the REST API.</li>
         <li><strong>Test the System:</strong> Verify registration, login, role-based access, and API functionality.</li>
     </ul>
