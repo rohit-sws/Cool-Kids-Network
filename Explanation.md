@@ -131,7 +131,7 @@
     <h2>Future Enhancements</h2>
     <ul>
         <li><strong>Password Implementation:</strong> Add secure password authentication for users.</li>
-        <li><strong>Improved Frontend:</strong> Use JavaScript frameworks like React for dynamic user experiences.</li>
+        <li><strong>Improved Frontend:</strong>  Create new theme with better UI.</li>
         <li><strong>Audit Logs:</strong> Log role changes for auditing purposes.</li>
         <li><strong>API Rate Limiting:</strong> Prevent abuse by limiting the number of requests per user.</li>
     </ul>
