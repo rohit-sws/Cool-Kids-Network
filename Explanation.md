@@ -62,7 +62,6 @@
     <ul>
         <li>A REST API endpoint is registered with <code>register_rest_route()</code>.</li>
         <li>The API validates the request using <code>current_user_can('manage_options')</code>.</li>
-        <li>User roles are updated using <code>set_role()</code>.</li>
     </ul>
     <h2>Design Decisions</h2>
     <ul>
